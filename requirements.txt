@@ -4,3 +4,4 @@ SQLAlchemy
 Flask-Migrate==2.6.0
 Flask-SQLAlchemy
 Flask-Script==2.0.5
+flask-marshmallow
