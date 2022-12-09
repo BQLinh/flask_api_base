@@ -1,26 +1,27 @@
-from flask import Flask
-from flask_script import Manager
+from flask import Flask, jsonify
 from flask_migrate import Migrate, MigrateCommand
+from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
+
 import models
+import routes
+import schemas
+from models import user
 from models.base import app
-from models import entity
 
 
-# app = Flask(__name__)
-
-
-# db = SQLAlchemy(app)
-# migrate = Migrate(app, db)
-# manager = Manager(app)
-# manager.add_command('db', MigrateCommand)
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 models.init_app(app)
-# class User(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String(128), unique=True, nullable=False)
-#     email = db.Column(db.String)
+routes.init_app(app)
+schemas.init_app(app)
 
 
-# if __name__ == '__main__':
-#     manager.run()
+@app.route('/movies', methods=['GET'])
+def list_movies():
+    return jsonify({'greet': 'hello'})
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
